@@ -5,7 +5,7 @@ import Navbar from "@/components/navbar";
 import { FaLandmark } from "react-icons/fa"; // For a small icon in the description
 import RightHeroImage from "@/components/right-hero";
 
-const RegisterLand: React.FC = () => {
+const CreateAccount: React.FC = () => {
   const [plotId, setPlotId] = useState("");
   const [location, setLocation] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -29,11 +29,19 @@ const RegisterLand: React.FC = () => {
           {/* Left Side - Form & Description */}
           <div className="  flex flex-col justify-center w-[60%]">
             <h1 className="text-4xl font-bold text-gray-900 mb-6">
-              Register Land Plot
+              Create your account
             </h1>
             <ul className="text-gray-600 mb-8">
-              <li>Government Portal for Land Management.</li>
-              <li>Can be accessed by state government and local government.</li>
+              <li>Create your account to be able to receive your land.</li>
+              <li className="text-red-600">
+                Be cautious, if you loose this account's secret key, you will
+                loose all land plot associated to this account, it can't be
+                recovered!!!
+              </li>
+              <li>
+                Store secret key in offline sources like paper or hardware
+                wallets.
+              </li>
             </ul>
 
             {successMessage && (
@@ -48,7 +56,7 @@ const RegisterLand: React.FC = () => {
                   htmlFor="plotId"
                   className="block text-left text-gray-600"
                 >
-                  Plot ID
+                  Confirm Your wallet Address
                 </label>
                 <input
                   type="text"
@@ -56,7 +64,7 @@ const RegisterLand: React.FC = () => {
                   value={plotId}
                   onChange={(e) => setPlotId(e.target.value)}
                   className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition"
-                  placeholder="123456"
+                  placeholder="0x1234567898765432123456789"
                 />
               </div>
 
@@ -65,7 +73,7 @@ const RegisterLand: React.FC = () => {
                   htmlFor="location"
                   className="block text-left text-gray-600"
                 >
-                  Location
+                  Your Desired Username
                 </label>
                 <input
                   type="text"
@@ -73,15 +81,15 @@ const RegisterLand: React.FC = () => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition"
-                  placeholder="Kathmandu"
+                  placeholder="john_doe"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 mt-6 font-bold text-white bg-gradient-to-r from-pink-500 to-red-500 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 focus:ring-2 focus:ring-pink-500 transition"
+                className="w-full py-3 mt-6 font-bold text-white bg-red-500 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 focus:ring-2 focus:ring-pink-500 transition"
               >
-                Register Plot
+                Create Account
               </button>
 
               <p className="mt-2 text-sm">
@@ -90,9 +98,7 @@ const RegisterLand: React.FC = () => {
                   Request support ticket.
                 </a>
               </p>
-              <p className="text-xs -mt-2">
-                Only registered government employees can request.
-              </p>
+              <p className="text-xs -mt-2">Anyone can request.</p>
             </form>
           </div>
 
@@ -106,4 +112,4 @@ const RegisterLand: React.FC = () => {
   );
 };
 
-export default RegisterLand;
+export default CreateAccount;
