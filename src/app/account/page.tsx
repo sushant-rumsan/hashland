@@ -27,7 +27,7 @@ const CreateAccount: React.FC = () => {
       <div className="min-h-screen mt-8 flex items-center justify-center bg-cover bg-gradient-to-r from-gray-100 to-gray-200 relative py-12">
         <div className="relative max-w-7xl w-full mx-auto shadow-sm rounded-lg overflow-hidden flex justify-between">
           {/* Left Side - Form & Description */}
-          <div className="  flex flex-col justify-center w-[60%]">
+          <div className="  flex flex-col justify-center w-[100%]">
             <h1 className="text-4xl font-bold text-gray-900 mb-6">
               Create your account
             </h1>
@@ -103,9 +103,9 @@ const CreateAccount: React.FC = () => {
           </div>
 
           {/* Right Side - Image */}
-          <div className="relative w-[30%] flex justify-end">
+          {/* <div className="relative w-[30%] flex justify-end">
             <RightHeroImage />
-          </div>
+          </div> */}
         </div>
       </div>
     </>
