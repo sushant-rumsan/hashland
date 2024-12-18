@@ -1,26 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import { FaLandmark } from "react-icons/fa"; // For a small icon in the description
 import RightHeroImage from "@/components/right-hero";
+import { useWriteProjectRegisterPlot } from "../../hooks/contracts/generated/project";
+import { CONTRACT_ADDRESS } from "@/constants/contract";
 
 const RegisterLand: React.FC = () => {
   const [plotId, setPlotId] = useState("");
   const [location, setLocation] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const {writeContract, isPending, isSuccess} = useWriteProjectRegisterPlot();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (plotId && location) {
-      setSuccessMessage(`Plot ID ${plotId} registered successfully!`);
-      setPlotId("");
-      setLocation("");
-      setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3 seconds
+      
+
+        writeContract({
+          address: CONTRACT_ADDRESS,
+          args: [BigInt(+plotId), location, BigInt(0)],
+        });
+
     } else {
       alert("Please fill in both Plot ID and Location");
     }
   };
+
+  useEffect(() => {
+    if(isSuccess) {
+      setSuccessMessage(`Plot ID ${plotId} registered successfully!`);
+      setPlotId("");
+      setLocation("");
+      setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3 seconds
+    }
+  }, [isSuccess])
 
   return (
     <>
@@ -78,10 +94,11 @@ const RegisterLand: React.FC = () => {
               </div>
 
               <button
+              disabled={isPending}
                 type="submit"
                 className="w-full py-3 mt-6 font-bold text-white bg-gradient-to-r from-pink-500 to-red-500 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 focus:ring-2 focus:ring-pink-500 transition"
               >
-                Register Plot
+                {isPending ? 'Registering...' : 'Register Plot'}
               </button>
 
               <p className="mt-2 text-sm">

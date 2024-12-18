@@ -25,17 +25,6 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
     <QueryClientProvider client={queryClient}>
       <ConnectKitProvider
         theme="nouns"
-        options={{
-          customAvatar: ({ radius }) => (
-            <Image
-              src="/punk.webp"
-              alt="avatar"
-              style={{ borderRadius: radius }}
-              width={radius}
-              height={radius}
-            />
-          ),
-        }}
       >
         {children}
       </ConnectKitProvider>

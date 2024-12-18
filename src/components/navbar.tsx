@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { ConnectKitButton } from "connectkit";
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,50 +16,51 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <Link
             href="/"
-            className="text-pink-600 text-2xl font-bold flex items-center gap-4"
+            className="text-orange-600 text-2xl font-bold flex items-center gap-4"
           >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Emblem_of_Nepal.svg/1200px-Emblem_of_Nepal.svg.png"
+              src="/logo.png"
               alt=""
-              className="w-8"
+              className="w-36"
             />
-            HashLand
           </Link>
 
           {/* Primary Links - Desktop */}
           <div className="hidden md:flex space-x-8 items-center">
             <Link
               href="/"
-              className="text-pink-600 hover:text-pink-600 transition duration-150"
+              className="text-orange-600 hover:text-orange-600 transition duration-150"
             >
               Register Land
             </Link>
             <Link
               href="/records"
-              className="text-pink-600 hover:text-pink-600 transition duration-150"
+              className="text-orange-600 hover:text-orange-600 transition duration-150"
             >
               View Records
             </Link>
             <Link
               href="/transfer"
-              className="text-pink-600 hover:text-pink-600 transition duration-150"
+              className="text-orange-600 hover:text-orange-600 transition duration-150"
             >
               Transfer Ownership
             </Link>
-          </div>
 
-          {/* CTA Button */}
-          <Link
+            <Link
             href="/account"
-            className="hidden md:inline-block bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition duration-150"
+            className="text-orange-600 hover:text-orange-600 transition duration-150"
           >
-            Create your account
+            Create Username
           </Link>
+          </div>
+          
+
+          <ConnectKitButton />
 
           {/* Mobile Menu Button */}
           <button
             onClick={handleToggleMenu}
-            className="md:hidden text-pink-600 text-2xl focus:outline-none"
+            className="md:hidden text-orange-600 text-2xl focus:outline-none"
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </button>
@@ -69,28 +71,29 @@ const Navbar: React.FC = () => {
           <div className="md:hidden">
             <Link
               href="/"
-              className="block px-4 py-2 text-pink-600 hover:bg-blue-600"
+              className="block px-4 py-2 text-orange-600 hover:bg-blue-600"
             >
               Register Land
             </Link>
             <Link
               href="/records"
-              className="block px-4 py-2 text-pink-600 hover:bg-blue-600"
+              className="block px-4 py-2 text-orange-600 hover:bg-blue-600"
             >
               View Records
             </Link>
             <Link
               href="/transfer"
-              className="block px-4 py-2 text-pink-600 hover:bg-blue-600"
+              className="block px-4 py-2 text-orange-600 hover:bg-blue-600"
             >
               Transfer Ownership
             </Link>
             <Link
               href="/account"
-              className="block px-4 py-2 text-pink-600 hover:bg-blue-600 bg-blue-800 mt-2 rounded-lg"
+              className="block px-4 py-2 text-orange-600 hover:bg-blue-600 bg-blue-800 mt-2 rounded-lg"
             >
-              Create your account
+              Create Username
             </Link>
+            <ConnectKitButton />
           </div>
         )}
       </div>

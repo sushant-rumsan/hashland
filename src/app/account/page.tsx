@@ -1,26 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import { FaLandmark } from "react-icons/fa"; // For a small icon in the description
 import RightHeroImage from "@/components/right-hero";
+import { useWriteProjectRegisterLandOwner } from "../../../hooks/contracts/generated/project";
+import { CONTRACT_ADDRESS } from "@/constants/contract";
 
 const CreateAccount: React.FC = () => {
-  const [plotId, setPlotId] = useState("");
-  const [location, setLocation] = useState("");
+  const [userName, setUserName] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const {writeContract, isPending, isSuccess} = useWriteProjectRegisterLandOwner();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (plotId && location) {
-      setSuccessMessage(`Plot ID ${plotId} registered successfully!`);
-      setPlotId("");
-      setLocation("");
+    if (userName) {
+      writeContract({
+        address: CONTRACT_ADDRESS,
+        args: [userName],
+      });
+
+      setUserName("");
       setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3 seconds
     } else {
       alert("Please fill in both Plot ID and Location");
     }
   };
+
+  useEffect(() => {
+    if(isSuccess) {
+      setSuccessMessage(`User registered successfully!`);
+      setUserName("");
+      setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3 seconds
+    }
+  }, [isSuccess])
 
   return (
     <>
@@ -29,10 +43,10 @@ const CreateAccount: React.FC = () => {
           {/* Left Side - Form & Description */}
           <div className="  flex flex-col justify-center w-[100%]">
             <h1 className="text-4xl font-bold text-gray-900 mb-6">
-              Create your account
+              Create Username
             </h1>
             <ul className="text-gray-600 mb-8">
-              <li>Create your account to be able to receive your land.</li>
+              <li>Create your username to be able to receive your land.</li>
               <li className="text-red-600">
                 Be cautious, if you loose this account's secret key, you will
                 loose all land plot associated to this account, it can't be
@@ -51,22 +65,6 @@ const CreateAccount: React.FC = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label
-                  htmlFor="plotId"
-                  className="block text-left text-gray-600"
-                >
-                  Confirm Your wallet Address
-                </label>
-                <input
-                  type="text"
-                  id="plotId"
-                  value={plotId}
-                  onChange={(e) => setPlotId(e.target.value)}
-                  className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition"
-                  placeholder="0x1234567898765432123456789"
-                />
-              </div>
 
               <div>
                 <label
@@ -78,18 +76,19 @@ const CreateAccount: React.FC = () => {
                 <input
                   type="text"
                   id="location"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                   className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition"
                   placeholder="john_doe"
                 />
               </div>
 
               <button
+              disabled={isPending}
                 type="submit"
-                className="w-full py-3 mt-6 font-bold text-white bg-red-500 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 focus:ring-2 focus:ring-pink-500 transition"
+                className="w-full py-3 mt-6 font-bold text-white bg-gradient-to-r from-pink-500 to-red-500 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 focus:ring-2 focus:ring-pink-500 transition"
               >
-                Create Account
+                {isPending ? 'Registering...' : 'Register Username'}
               </button>
 
               <p className="mt-2 text-sm">
