@@ -29,7 +29,7 @@ export const config: Config = createConfig(
     },
     walletConnectProjectId: '',
     // Required App Info
-    appName: 'Nirbhik',
+    appName: 'HashLand',
 
     // Optional App Info
     appDescription: '',
